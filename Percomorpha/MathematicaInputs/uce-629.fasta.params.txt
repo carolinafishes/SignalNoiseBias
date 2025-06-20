@@ -1,0 +1,10 @@
+rACp=0.432;
+rAGp=4.8823;
+rATp=0.432;
+rCGp=1;
+rTCp=1.8844;
+rTGp=1;
+piAp=0.25;
+piCp=0.25;
+piGp=0.25;
+piTp=0.25;

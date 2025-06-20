@@ -1,0 +1,400 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     15279,        392]
+NotebookOptionsPosition[     13735,        362]
+NotebookOutlinePosition[     14127,        378]
+CellTagsIndexPosition[     14084,        375]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ratevecFiles", "=", 
+    RowBox[{"FileNames", "[", 
+     RowBox[{"\"\<*.fasta.ratevec\>\"", ",", 
+      RowBox[{"NotebookDirectory", "[", "]"}]}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"Do", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<\|01f501 Now processing: \>\"", ",", "file"}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"Clean", " ", "kernel", " ", "state"}], "*)"}], 
+    RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "Print", "[", "\"\<\|01f9f9 Cleared previous definitions.\>\"", "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"Step", " ", "1"}], ":", 
+      RowBox[{"Load", " ", "ratevectorp"}]}], "*)"}], 
+    RowBox[{"Quiet", "[", 
+     RowBox[{"Check", "[", 
+      RowBox[{
+       RowBox[{"Get", "[", "file", "]"}], ",", 
+       RowBox[{
+        RowBox[{"Print", "[", 
+         RowBox[{
+         "\"\<\:274c Failed to import ratevectorp for \>\"", ",", "file"}], 
+         "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Continue", "[", "]"}]}]}], "]"}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"ValueQ", "[", "ratevectorp", "]"}]}], "||", 
+       RowBox[{"!", 
+        RowBox[{"ListQ", "[", "ratevectorp", "]"}]}]}], ",", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"\"\<\:274c ratevectorp is not valid in \>\"", ",", "file"}], 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Continue", "[", "]"}], ";"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"baseName", "=", 
+     RowBox[{
+      RowBox[{"StringSplit", "[", 
+       RowBox[{
+        RowBox[{"FileBaseName", "[", "file", "]"}], ",", "\"\<.\>\""}], "]"}],
+       "[", 
+      RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<\|01f4c2 BaseName: \>\"", ",", "baseName"}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<\|01f4cf Vector length: \>\"", ",", 
+      RowBox[{"Length", "[", "ratevectorp", "]"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"Step", " ", "2"}], ":", 
+      RowBox[{"Load", " ", "parameter", " ", "file"}]}], "*)"}], 
+    RowBox[{"paramFile", "=", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], "<>", "baseName", "<>", 
+      "\"\<.fasta.params.txt\>\""}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"FileExistsQ", "[", "paramFile", "]"}], ",", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"\"\<\:2705 Found parameter file: \>\"", ",", "paramFile"}], 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"paramLines", "=", 
+        RowBox[{"StringSplit", "[", 
+         RowBox[{
+          RowBox[{"Import", "[", 
+           RowBox[{"paramFile", ",", "\"\<Text\>\""}], "]"}], ",", 
+          "\"\<\\n\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"StringContainsQ", "[", 
+            RowBox[{"line", ",", "\"\<NA\>\""}], "]"}], ",", 
+           RowBox[{"Print", "[", 
+            RowBox[{
+            "\"\<\:26a0\:fe0f Skipping line with NA: \>\"", ",", "line"}], 
+            "]"}], ",", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"Check", "[", 
+             RowBox[{
+              RowBox[{"ToExpression", "[", "line", "]"}], ",", 
+              RowBox[{"Print", "[", 
+               RowBox[{
+               "\"\<\:26a0\:fe0f Failed to evaluate line: \>\"", ",", 
+                "line"}], "]"}]}], "]"}], "]"}]}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"line", ",", "paramLines"}], "}"}]}], "]"}]}], ",", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{
+        "\"\<\:26a0\:fe0f Parameter file not found: \>\"", ",", "paramFile"}],
+         "]"}], ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"Step", " ", "3"}], ":", 
+      RowBox[{"Evaluate", " ", "the", " ", "notebook"}]}], "*)"}], 
+    RowBox[{
+    "Print", "[", 
+     "\"\<\|01f4e4 Calling NotebookEvaluate on Template.nb...\>\"", "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"evalSuccess", "=", 
+     RowBox[{"Quiet", "@", 
+      RowBox[{"Check", "[", 
+       RowBox[{
+        RowBox[{"NotebookEvaluate", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+           "\"\<Template.nb\>\""}], ",", 
+          RowBox[{"InsertResults", "->", "True"}]}], "]"}], ",", "$Failed"}], 
+       "]"}]}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"evalSuccess", "===", "$Failed"}], ",", 
+      RowBox[{"Print", "[", 
+       RowBox[{
+       "\"\<\:274c Failed to evaluate notebook for \>\"", ",", "file"}], 
+       "]"}], ",", 
+      RowBox[{"Print", "[", 
+       RowBox[{
+       "\"\<\:2705 Successfully evaluated notebook for \>\"", ",", "file"}], 
+       "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Pause", "[", "0.5", "]"}], ";"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"file", ",", "ratevecFiles"}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.952695009582683*^9, 3.952695009585291*^9}, 
+   3.9526951962333183`*^9, 3.952695246583027*^9, 3.95269529458239*^9, 
+   3.952695416727689*^9, 3.952695482064995*^9, 3.952695582806134*^9, 
+   3.9526956262376757`*^9, 3.952695926235454*^9, 3.952700295556713*^9, 
+   3.952700545709096*^9, 3.95315244764305*^9, {3.953270285532984*^9, 
+   3.953270295123434*^9}},ExpressionUUID->"2511ea79-d3a2-457c-a469-\
+dc661143e7ea"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\|01f501 Now processing: \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-3.spaceless.\
+fasta.ratevec\"\>"}],
+  SequenceForm[
+  "\|01f501 Now processing: ", 
+   "/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-3.spaceless.fasta.\
+ratevec"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695932323659*^9},
+ CellLabel->
+  "During evaluation of \
+In[25]:=",ExpressionUUID->"40054766-7906-4078-bd8e-8d2f88cd4468"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\|01f4c2 BaseName: \"\>", 
+   "\[InvisibleSpace]", "\<\"uce-3\"\>"}],
+  SequenceForm["\|01f4c2 BaseName: ", "uce-3"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695932324266*^9},
+ CellLabel->
+  "During evaluation of \
+In[25]:=",ExpressionUUID->"b87fa733-17a7-4939-a0f3-2294d1cdec9b"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\|01f4c2 Vector length: \"\>", "\[InvisibleSpace]", "545"}],
+  SequenceForm["\|01f4c2 Vector length: ", 545],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.9526959323247423`*^9},
+ CellLabel->
+  "During evaluation of \
+In[25]:=",ExpressionUUID->"7814f914-e35f-4523-acc3-43d755c19347"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\:2705 Found parameter file: \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-3.params.txt\"\>\
+"}],
+  SequenceForm[
+  "\:2705 Found parameter file: ", 
+   "/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-3.params.txt"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695932334444*^9},
+ CellLabel->
+  "During evaluation of \
+In[25]:=",ExpressionUUID->"720dcbf8-db14-4430-8f47-0454ea797997"],
+
+Cell[BoxData["\<\"\|01f4e4 Calling NotebookEvaluate on Template.nb...\"\>"], \
+"Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695932334854*^9},
+ CellLabel->
+  "During evaluation of \
+In[25]:=",ExpressionUUID->"e72e923c-f23c-481c-bbcd-2fc8ec96ad39"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\:2705 Successfully evaluated notebook for \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-3.spaceless.\
+fasta.ratevec\"\>"}],
+  SequenceForm[
+  "\:2705 Successfully evaluated notebook for ", 
+   "/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-3.spaceless.fasta.\
+ratevec"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695945239293*^9},
+ CellLabel->
+  "During evaluation of \
+In[143]:=",ExpressionUUID->"22b74b73-9514-4e42-af1e-a7cb96905a0e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\|01f501 Now processing: \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-8.spaceless.\
+fasta.ratevec\"\>"}],
+  SequenceForm[
+  "\|01f501 Now processing: ", 
+   "/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-8.spaceless.fasta.\
+ratevec"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695945239674*^9},
+ CellLabel->
+  "During evaluation of \
+In[143]:=",ExpressionUUID->"874c3457-7d64-4eeb-82e1-3cbcb01ff83c"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\|01f4c2 BaseName: \"\>", 
+   "\[InvisibleSpace]", "\<\"uce-8\"\>"}],
+  SequenceForm["\|01f4c2 BaseName: ", "uce-8"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695945239949*^9},
+ CellLabel->
+  "During evaluation of \
+In[143]:=",ExpressionUUID->"d627119a-d224-4395-865b-de2f09051680"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\|01f4c2 Vector length: \"\>", "\[InvisibleSpace]", "492"}],
+  SequenceForm["\|01f4c2 Vector length: ", 492],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.9526959452401953`*^9},
+ CellLabel->
+  "During evaluation of \
+In[143]:=",ExpressionUUID->"d3ea1330-028c-44ff-a1ee-19eaf0d254c5"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\:2705 Found parameter file: \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-8.params.txt\"\>\
+"}],
+  SequenceForm[
+  "\:2705 Found parameter file: ", 
+   "/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-8.params.txt"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695945254846*^9},
+ CellLabel->
+  "During evaluation of \
+In[143]:=",ExpressionUUID->"206a7598-dcba-4302-aea3-3917a29bec80"],
+
+Cell[BoxData["\<\"\|01f4e4 Calling NotebookEvaluate on Template.nb...\"\>"], \
+"Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.9526959452651367`*^9},
+ CellLabel->
+  "During evaluation of \
+In[143]:=",ExpressionUUID->"3b75362d-d47f-424a-a3b4-b0ceec2ea0da"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\:2705 Successfully evaluated notebook for \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-8.spaceless.\
+fasta.ratevec\"\>"}],
+  SequenceForm[
+  "\:2705 Successfully evaluated notebook for ", 
+   "/Users/adornbur/Documents/SignalNoiseBiasPaper/test/uce-8.spaceless.fasta.\
+ratevec"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.952695024363851*^9, 3.952695201965958*^9, 
+  3.9526952504778423`*^9, 3.95269529841232*^9, 3.952695421477909*^9, 
+  3.9526954863706837`*^9, 3.952695587086659*^9, 3.9526956300309467`*^9, 
+  3.952695952187893*^9},
+ CellLabel->
+  "During evaluation of \
+In[143]:=",ExpressionUUID->"35ba1fce-d006-4073-aefa-c4a7aeec9538"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 911},
+WindowMargins->{{28, Automatic}, {Automatic, 63}},
+FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (June 3, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"bf125fb9-5911-4375-a7de-dfb1ab5ae5ae"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 5800, 148, 693, "Input",ExpressionUUID->"2511ea79-d3a2-457c-a469-dc661143e7ea"],
+Cell[CellGroupData[{
+Cell[6405, 174, 710, 17, 45, "Print",ExpressionUUID->"40054766-7906-4078-bd8e-8d2f88cd4468"],
+Cell[7118, 193, 533, 12, 25, "Print",ExpressionUUID->"b87fa733-17a7-4939-a0f3-2294d1cdec9b"],
+Cell[7654, 207, 527, 11, 25, "Print",ExpressionUUID->"7814f914-e35f-4523-acc3-43d755c19347"],
+Cell[8184, 220, 690, 16, 25, "Print",ExpressionUUID->"720dcbf8-db14-4430-8f47-0454ea797997"],
+Cell[8877, 238, 424, 8, 25, "Print",ExpressionUUID->"e72e923c-f23c-481c-bbcd-2fc8ec96ad39"],
+Cell[9304, 248, 747, 17, 45, "Print",ExpressionUUID->"22b74b73-9514-4e42-af1e-a7cb96905a0e"],
+Cell[10054, 267, 711, 17, 45, "Print",ExpressionUUID->"874c3457-7d64-4eeb-82e1-3cbcb01ff83c"],
+Cell[10768, 286, 534, 12, 25, "Print",ExpressionUUID->"d627119a-d224-4395-865b-de2f09051680"],
+Cell[11305, 300, 528, 11, 25, "Print",ExpressionUUID->"d3ea1330-028c-44ff-a1ee-19eaf0d254c5"],
+Cell[11836, 313, 691, 16, 25, "Print",ExpressionUUID->"206a7598-dcba-4302-aea3-3917a29bec80"],
+Cell[12530, 331, 427, 8, 25, "Print",ExpressionUUID->"3b75362d-d47f-424a-a3b4-b0ceec2ea0da"],
+Cell[12960, 341, 747, 17, 45, "Print",ExpressionUUID->"35ba1fce-d006-4073-aefa-c4a7aeec9538"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
